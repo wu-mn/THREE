@@ -1,6 +1,6 @@
 // prettier-ignore
 import * as THREE from '/node_modules/three/build/three.module.js';
-
+console.log("prTest4");
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
   75,
