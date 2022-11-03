@@ -13,15 +13,6 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-// const geometry = new THREE.SphereGeometry(1, 35, 35);
-
-// let txLoader = new THREE.TextureLoader();
-// let normalMap = txLoader.load("./img/earthmap1k.jpg");
-// const material = new THREE.MeshBasicMaterial({
-//   color: 0xffffff,
-//   map: normalMap,
-// });
-// const earth = new THREE.Mesh(geometry, material);
 let dirLight = new THREE.DirectionalLight(0xffffff, 1);
 dirLight.position.set(5, 3, 5); // 光の向き
 scene.add(dirLight);
