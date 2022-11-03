@@ -1,6 +1,8 @@
 // prettier-ignore
 import * as THREE from '/node_modules/three/build/three.module.js';
-console.log("prTest4");
+// prettier-ignore
+import { OrbitControls } from '/node_modules/three/examples/jsm/controls/OrbitControls.js';
+
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
   75,
@@ -8,11 +10,12 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   1000
 );
-
+camera.position.set(0, 0, 5);
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
-
+const cameraControl = new OrbitControls(camera, renderer.domElement);
+// ライトを作る1
 let dirLight = new THREE.DirectionalLight(0xffffff, 1);
 dirLight.position.set(5, 3, 5); // 光の向き
 scene.add(dirLight);
@@ -23,8 +26,6 @@ const earth = createMesh(1, "./img/earthmap1k.jpg");
 const moon = createMesh(0.2, "./img/moonbump1k.jpg");
 scene.add(earth);
 scene.add(moon);
-
-camera.position.z = 5;
 
 function createMesh(w, path) {
   // テクスチャ
