@@ -2,15 +2,37 @@
 import * as THREE from '/node_modules/three/build/three.module.js';
 // prettier-ignore
 import { OrbitControls } from '/node_modules/three/examples/jsm/controls/OrbitControls.js';
+// prettier-ignore
+import { OBJLoader } from '/node_modules/three/examples/jsm/loaders/OBJLoader.js';
 
+// objファイル導入
+const loader = new OBJLoader();
+loader.load(
+  "../src/obj/Table-And-Chairs.obj",
+  // called when resource is loaded
+  function (object) {
+    scene.add(object);
+  },
+  // called when loading is in progresses
+  function (xhr) {
+    console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+  },
+  // called when loading has errors
+  function (error) {
+    console.log("An error happened");
+  }
+);
 const scene = new THREE.Scene();
+//カメラ作成
 const camera = new THREE.PerspectiveCamera(
   75,
   window.innerWidth / window.innerHeight,
   0.1,
   1000
 );
+//カメラ場所設置
 camera.position.set(0, 0, 5);
+//renderer作成
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
@@ -31,7 +53,7 @@ function createMesh(w, path) {
   // テクスチャ
   let txLoader = new THREE.TextureLoader();
   let normalMap = txLoader.load(path);
-  // ジオメトリ
+  // ジオメトリ、wは半径
   let geometry = new THREE.SphereGeometry(w, 35, 35);
   // マテリアル
   let material = new THREE.MeshBasicMaterial({
@@ -50,6 +72,7 @@ function animate() {
   moon.position.x = 2 * Math.cos(radian); // 月を周回させる
   moon.position.z = 2 * Math.sin(radian);
   radian += 0.004;
+  //カメラとsceneをrendererに入れる
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
 }
